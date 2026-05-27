@@ -6,7 +6,7 @@ set -e
 
 DOMAIN="kvl-central.com"
 EMAIL="admin@kvl-central.com"
-CF_TOKEN="YOUR_CLOUDFLARE_API_TOKEN"  # Cloudflare API token with DNS:Edit
+CF_TOKEN="${CF_TOKEN:?'CF_TOKEN env var required. Run: export CF_TOKEN=your_token'}"
 
 # ── 1. Install certbot + cloudflare plugin ────────────────────────────
 echo "→ Installing certbot..."

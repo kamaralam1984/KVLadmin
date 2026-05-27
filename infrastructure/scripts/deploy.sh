@@ -18,6 +18,9 @@ fi
 echo "→ Installing dependencies..."
 npm install --production=false
 
+echo "→ Generating Prisma client..."
+npx prisma generate
+
 echo "→ Building..."
 npm run build
 
