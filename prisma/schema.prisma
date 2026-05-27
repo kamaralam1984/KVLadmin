@@ -1,0 +1,154 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         String   @default("staff")
+  status       String   @default("active")
+  lastLogin    DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("admin_users")
+}
+
+model Site {
+  id           String   @id @default(cuid())
+  name         String
+  url          String   @unique
+  subdomain    String?  @unique
+  customDomain String?  @unique
+  apiUrl       String
+  apiKey       String
+  ownerEmail   String?
+  status       String   @default("pending")
+  category     String   @default("General")
+  description  String   @default("")
+  favicon      String?
+  lastChecked  DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  subscriptions Subscription[]
+  usageLogs     UsageLog[]
+  webhookEvents WebhookEvent[]
+  analytics     Analytics[]
+
+  @@map("sites")
+}
+
+model OtpSession {
+  id        String   @id @default(cuid())
+  email     String
+  otp       String
+  siteUrl   String?
+  expiresAt DateTime
+  verified  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([email])
+  @@map("otp_sessions")
+}
+
+model Order {
+  id        String   @id @default(cuid())
+  customer  String
+  product   String
+  amount    Float
+  status    String   @default("pending")
+  siteId    String?
+  createdAt DateTime @default(now())
+
+  @@index([siteId])
+  @@map("orders")
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  company   String
+  status    String   @default("new")
+  value     Float    @default(0)
+  createdAt DateTime @default(now())
+
+  @@map("leads")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  title     String
+  message   String
+  type      String   @default("info")
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@map("notifications")
+}
+
+model Subscription {
+  id          String   @id @default(cuid())
+  siteId      String
+  plan        String   @default("free")
+  status      String   @default("active")
+  renewalDate DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId])
+  @@map("subscriptions")
+}
+
+model UsageLog {
+  id           String   @id @default(cuid())
+  siteId       String
+  requestCount Int      @default(0)
+  bandwidth    Float    @default(0)
+  createdAt    DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId])
+  @@map("usage_logs")
+}
+
+model WebhookEvent {
+  id        String   @id @default(cuid())
+  siteId    String
+  type      String
+  payload   Json
+  processed Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId])
+  @@index([processed])
+  @@map("webhook_events")
+}
+
+model Analytics {
+  id        String   @id @default(cuid())
+  siteId    String
+  visitors  Int      @default(0)
+  orders    Int      @default(0)
+  revenue   Float    @default(0)
+  date      DateTime @default(now())
+  createdAt DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId])
+  @@index([date])
+  @@map("analytics")
+}

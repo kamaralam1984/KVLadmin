@@ -1,0 +1,2 @@
+import { ProductsPage } from "@/modules/products/ProductsPage";
+export default function Products() { return <ProductsPage />; }
