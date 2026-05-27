@@ -9,7 +9,10 @@
     "lint": "eslint",
     "db:migrate": "prisma migrate dev",
     "db:seed": "tsx prisma/seed.ts",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "workers": "tsx workers/index.ts",
+    "redis:up": "docker compose -f docker-compose.redis.yml up -d",
+    "redis:down": "docker compose -f docker-compose.redis.yml down"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
@@ -28,9 +31,11 @@
     "@radix-ui/react-tabs": "^1.1.13",
     "@radix-ui/react-tooltip": "^1.2.8",
     "@types/pg": "^8.20.0",
+    "bullmq": "^5.77.6",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.40.0",
+    "ioredis": "^5.11.0",
     "lucide-react": "^1.16.0",
     "next": "16.2.6",
     "next-themes": "^0.4.6",
