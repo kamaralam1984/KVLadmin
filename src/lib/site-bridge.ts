@@ -9,7 +9,7 @@ export interface BridgeResult<T = unknown> {
 }
 
 export async function bridgeFetch<T = unknown>(
-  site: Site,
+  site: Pick<Site, "apiUrl" | "apiKey">,
   path: string,
   options: RequestInit = {}
 ): Promise<BridgeResult<T>> {
@@ -56,7 +56,7 @@ export async function bridgeFetch<T = unknown>(
   }
 }
 
-export async function checkSiteStatus(site: Site): Promise<{
+export async function checkSiteStatus(site: Pick<Site, "apiUrl" | "apiKey">): Promise<{
   online: boolean
   latencyMs: number
   error?: string

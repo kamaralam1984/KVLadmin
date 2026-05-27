@@ -67,7 +67,7 @@ export function UsersPage() {
       setFormError(result.error);
       return;
     }
-    setUsers((prev) => [...prev, result.data]);
+    setUsers((prev) => [...prev, result.data!]);
     setShowModal(false);
     setForm(emptyForm);
   };

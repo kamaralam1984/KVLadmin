@@ -40,8 +40,8 @@ export function LoginPage() {
     }
 
     setEmail(emailVal);
-    setSessionId(result.data.sessionId);
-    if (result.data._devOtp) setDevOtp(result.data._devOtp);
+    setSessionId(result.data!.sessionId);
+    if (result.data!._devOtp) setDevOtp(result.data!._devOtp);
     setStep("otp");
   };
 
