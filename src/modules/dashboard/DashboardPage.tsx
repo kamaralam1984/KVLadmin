@@ -5,12 +5,13 @@ import { StatsCard } from "@/components/common/StatsCard";
 import { RevenueChart } from "@/components/charts/RevenueChart";
 import { UserGrowthChart } from "@/components/charts/UserGrowthChart";
 import { SalesPieChart } from "@/components/charts/SalesPieChart";
+import { MultiSiteDashboard } from "@/modules/sites/MultiSiteDashboard";
 import { api } from "@/lib/api";
 import { useAuth } from "@/contexts/AuthContext";
 import type { Order } from "@/types";
 import {
   DollarSign, Users, ShoppingCart, TrendingUp,
-  Activity, Cpu, Brain, AlertTriangle, CheckCircle, Info
+  Activity, Cpu, Brain, AlertTriangle, CheckCircle, Info, Globe
 } from "lucide-react";
 
 interface DashboardStats {
@@ -266,6 +267,15 @@ export function DashboardPage() {
             );
           })}
         </div>
+      </div>
+
+      {/* Multi-Site Overview */}
+      <div>
+        <div className="flex items-center gap-2 mb-4">
+          <Globe size={18} style={{ color: "#6366f1" }} />
+          <h2 className="text-lg font-bold text-white">Multi-Site Overview</h2>
+        </div>
+        <MultiSiteDashboard />
       </div>
     </div>
   );

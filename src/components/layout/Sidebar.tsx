@@ -7,7 +7,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import {
   LayoutDashboard, Users, Phone, Package2, ShoppingCart,
   BarChart3, Bell, Bot, Settings, LogOut, ChevronLeft,
-  ChevronRight, Zap, Building2, Menu, X, Globe
+  ChevronRight, Zap, Building2, Menu, X, Globe, Webhook
 } from "lucide-react";
 
 const navItems = [
@@ -19,6 +19,7 @@ const navItems = [
   { label: "Products", href: "/products", icon: Package2 },
   { label: "Orders", href: "/orders", icon: ShoppingCart },
   { label: "Analytics", href: "/analytics", icon: BarChart3 },
+  { label: "Webhooks", href: "/webhooks", icon: Webhook },
   { label: "Notifications", href: "/notifications", icon: Bell, badge: 3 },
   { label: "AI Assistant", href: "/ai-assistant", icon: Bot },
   { label: "Settings", href: "/settings", icon: Settings },
